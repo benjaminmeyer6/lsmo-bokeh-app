@@ -10,9 +10,8 @@ from bokeh.layouts import layout, widgetbox
 import bokeh.models as bmd
 from bokeh.models.widgets import PreText, Button
 from bokeh.io import curdoc
-
 from jsmol_bokeh_extension import JSMol
-#from import_db import get_cif_content
+from import_db import get_cif_content
 from detail.query import get_sqlite_data as get_data
 
 html = bmd.Div(
@@ -35,7 +34,7 @@ def get_name_from_url():
         if isinstance(name, bytes):
             name = name.decode()
     except (TypeError, KeyError):
-        name = 'linker91_CH_linker92_N_clh_relaxed'
+        name = 'Pt_0.0'
 
     return name
 
@@ -45,9 +44,8 @@ def table_widget(entry):
     from bokeh.models.widgets import DataTable, TableColumn
 
     entry_dict = copy(entry.__dict__)
-    # Note: iterate over old dict, not the copy that is changing
+#    for k, v in entry_dict.items():
     for k, v in entry.__dict__.items():
-        #for k, v in entry_dict.items():
         if k == 'id' or k == '_sa_instance_state':
             del entry_dict[k]
 
@@ -103,8 +101,8 @@ def get_cif_content_from_os(filename):
     return data.content
 
 
-#cif_str = get_cif_content(entry.filename)
-cif_str = get_cif_content_from_os(entry.filename)
+cif_str = get_cif_content(entry.filename)
+#cif_str = get_cif_content_from_os(entry.filename)
 
 
 def get_cif_url(filename):
@@ -125,14 +123,14 @@ info = dict(
     serverURL="detail/static/jsmol/php/jsmol.php",
     j2sPath="detail/static/jsmol/j2s",
     script="""set antialiasDisplay ON;
-load data "cifstring"
+load data "xyzstring"
 {}
-end "cifstring"
+end "xyzstring"
 """.format(cif_str)
     ## Note: Need PHP server for approach below to work
-    #    script="""set antialiasDisplay ON;
-    #load cif::{};
-    #""".format(get_cif_url(entry.filename))
+#        script="""set antialiasDisplay ON;
+#    load {};
+#    """.format(get_cif_url(entry.filename))
 )
 
 btn_download_cif.callback = bmd.CustomJS(
@@ -162,5 +160,5 @@ tab = bmd.Panel(child=l, title=cof_name)
 tabs = bmd.widgets.Tabs(tabs=[tab])
 
 # Put the tabs in the current document for display
-curdoc().title = "Covalent Organic Frameworks"
+curdoc().title = "C-C Cross-Coupling Genome"
 curdoc().add_root(layout([html, tabs]))

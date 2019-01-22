@@ -9,11 +9,12 @@ import pandas as pd
 import sqlalchemy
 import re
 
+
 folder_db = 'data/'
+structure_extension = 'xyz'
+properties_csv = folder_db + '/propertiesPt.csv'
+table_name = 'Pd'  # parameters will be put in this database
 structure_folder = folder_db + '/structures/'
-structure_extension = 'cif'
-properties_csv = folder_db + '/properties.csv'
-table_name = 'cofs'  # parameters will be put in this database
 db_params = 'sqlite:///{}database.db'.format(folder_db)
 
 data = None
@@ -34,14 +35,9 @@ def parse_csv(path):
 def add_filenames(data):
     print("Adding filenames")
     fnames = [
-        "{}.{}".format(row['name'], structure_extension)
+        "{}.{}".format(row['Name'], structure_extension)
         for _index, row in data.iterrows()
     ]
-    #fnames = [
-    #    "{}_{}_{}_relaxed.cif".format(row['linkerA'], row['linkerB'],
-    #                                  row['net'])
-    #    for _index, row in data.iterrows()
-    #]
     data['filename'] = fnames
     return data
 
@@ -100,6 +96,8 @@ def rename_columns(data):
         else:
             label_new = label.replace(' ', '_')
             data.rename(index=str, columns={label: label_new}, inplace=True)
+    
+    data.rename(index=str,columns={'Name':'name'},inplace=True)    
 
     return data
 
@@ -132,6 +130,7 @@ def automap_table(engine):
     See https://stackoverflow.com/a/35397969/1069467 for workarounds
     """
     from sqlalchemy.ext.automap import automap_base
+
     Base = automap_base()
     Base.prepare(engine, reflect=True)
 

@@ -1,7 +1,3 @@
 # Specify filters
 ---
-- dimensions
-- bond_type
-- deliverable_capacity
-- density
-- surface_area
+- DeltaE

@@ -59,14 +59,12 @@ def load_preset(attr, old, new):  # pylint: disable=unused-argument,redefined-bu
     # pylint: disable=redefined-builtin
     for q in config.filter_list:
         filter = filters_dict[q]
-
         if isinstance(filter, RangeSlider):
-
             if q in preset.keys():
+
                 filter.value = preset[q]
             else:
                 filter.value = quantities[q]['range']
-
         elif isinstance(filter, CheckboxButtonGroup):
 
             if q in preset.keys():
@@ -91,9 +89,9 @@ bondtype_colors = list(config.bondtype_dict.values())
 plot_options = [(q, quantities[q]['label']) for q in config.plot_quantities]
 inp_x = Select(title='X', options=plot_options)
 inp_y = Select(title='Y', options=plot_options)
-#inp_clr = Select(title='Color', options=plot_options)
-inp_clr = Select(
-    title='Color', options=plot_options + [('bond_type', 'Bond type')])
+inp_clr = Select(title='Color', options=plot_options)
+#inp_clr = Select(
+#    title='Color', options=plot_options + [('bond_type', 'Bond type')])
 
 
 def on_filter_change(attr, old, new):  # pylint: disable=unused-argument
@@ -116,7 +114,8 @@ def get_slider(desc, range, default=None):
 def get_select(desc, values, default=None, labels=None):  # pylint: disable=unused-argument
     if default is None:
         # by default, make all selections active
-        default = range(len(values))
+#        default = range(len(values))
+        default = values
 
     if labels is None:
         labels = map(str, values)
@@ -159,6 +158,7 @@ source = bmd.ColumnDataSource(data=data_empty)
 hover = bmd.HoverTool(tooltips=[])
 tap = bmd.TapTool()
 
+colorscale=['#CCFFCC', '#CCFFCC', '#CCFFCC', '#CCFFCC', '#CCFFCC', '#CCFFCC', '#CCFFCC', '#CCFFCC', '#CCFFCC', '#CCFFCC', '#CCFFCC', '#CCFFCC', '#CCFFCC', '#CCFFCC', '#CCFFCC', '#80FF66', '#80FF66', '#80FF66', '#80FF66', '#80FF66', '#80FF66', '#80FF66', '#80FF66', '#80FF66', '#80FF66', '#80FF66', '#80FF66', '#80FF66', '#80FF66', '#80FF66', '#80FF66', '#80FF66', '#80FF66', '#80FF66', '#80FF66', '#80FF66', '#80FF66', '#80FF66', '#80FF66', '#80FF66', '#19FF19', '#19FF19', '#19FF19', '#19FF19', '#19FF19', '#19FF19', '#19FF19', '#19FF19', '#19FF19', '#19FF19', '#19FF19', '#19FF19', '#19FF19', '#009900', '#009900', '#009900', '#009900', '#009900', '#009900', '#009900', '#009900', '#009900', '#009900', '#009900', '#009900', '#009900', '#009900', '#009900', '#009900', '#009900', '#009900', '#009900', '#009900', '#009900', '#009900', '#009900', '#009900', '#009900', '#009900', '#009900', '#009900', '#009900', '#009900', '#009900', '#009900', '#009900', '#009900', '#009900', '#009900', '#009900', '#009900', '#009900', '#009900', '#009900', '#009900', '#009900', '#009900', '#000000', '#000000', '#000000', '#000000', '#000000', '#000000', '#000000', '#000000', '#000000', '#000000', '#000000', '#000000', '#000000', '#000000', '#000000', '#000000', '#000000', '#000000', '#B30000', '#B30000', '#B30000', '#B30000', '#B30000', '#B30000', '#B30000', '#B30000', '#B30000', '#B30000', '#B30000', '#B30000', '#B30000', '#B30000', '#B30000', '#B30000', '#B30000', '#B30000', '#B30000', '#B30000', '#B30000', '#B30000', '#FF1919', '#FF1919', '#FF1919', '#FF1919', '#FF1919', '#FF1919', '#FF1919', '#FF8080', '#FF8080', '#FF8080', '#FF8080', '#FF8080', '#FF8080', '#FF8080', '#FF8080', '#FF8080', '#FF8080', '#FF8080', '#FF8080', '#FF8080', '#FFCCCC', '#FFCCCC', '#FFCCCC', '#FFCCCC', '#FFCCCC', '#FFCCCC', '#FFCCCC', '#FFCCCC', '#FFCCCC', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0']
 
 def create_plot():
     """Creates scatter plot.
@@ -191,25 +191,37 @@ def create_plot():
     p_new.title.text_font_size = '10pt'
     p_new.title.text_font_style = 'italic'
 
-    if inp_clr.value == 'bond_type':
+#    if inp_clr.value == 'bond_type':
+#        from bokeh.transform import factor_cmap
+#        paper_palette = list(config.bondtype_dict.values())
+#        fill_color = factor_cmap(
+#            'color', palette=paper_palette, factors=bondtypes)
+#        p_new.circle(
+#            'x',
+#            'y',
+#            size=10,
+#            source=source,
+#            fill_color=fill_color,
+#            fill_alpha=0.6,
+#            line_alpha=0.4,
+#	    legend='color')
+
+    if inp_clr.value == 'DeltaE':
         from bokeh.transform import factor_cmap
-        paper_palette = list(config.bondtype_dict.values())
-        fill_color = factor_cmap(
-            'color', palette=paper_palette, factors=bondtypes)
-        p_new.circle(
-            'x',
-            'y',
-            size=10,
-            source=source,
-            fill_color=fill_color,
-            fill_alpha=0.6,
-            line_alpha=0.4,
-            legend='color')
+#       cmap = bmd.LinearColorMapper(palette=Viridis256)
+        cmap = bmd.LinearColorMapper(palette=colorscale,low=-80, high=30)
+        fill_color = {'field': 'color', 'transform': cmap}
+        p_new.circle('x', 'y', size=10, source=source, fill_color=fill_color, line_color=fill_color)
+        cbar = bmd.ColorBar(color_mapper=cmap, location=(0, 0))
+        #cbar.color_mapper = bmd.LinearColorMapper(palette=Viridis256)
+        p_new.add_layout(cbar, 'right')
+
 
     else:
         cmap = bmd.LinearColorMapper(palette=Viridis256)
+#        cmap = bmd.LinearColorMapper(palette=colorscale,low=-80, high=30)
         fill_color = {'field': 'color', 'transform': cmap}
-        p_new.circle('x', 'y', size=10, source=source, fill_color=fill_color)
+        p_new.circle('x', 'y', size=10, source=source, fill_color=fill_color, line_color=fill_color)
         cbar = bmd.ColorBar(color_mapper=cmap, location=(0, 0))
         #cbar.color_mapper = bmd.LinearColorMapper(palette=Viridis256)
         p_new.add_layout(cbar, 'right')
@@ -235,20 +247,6 @@ def update_legends(ly):
     ylabel = "{} [{}]".format(q_y["label"], q_y["unit"])
     xhover = (q_x["label"], "@x {}".format(q_x["unit"]))
     yhover = (q_y["label"], "@y {}".format(q_y["unit"]))
-
-    q_clr = quantities[inp_clr.value]
-    if 'unit' not in q_clr.keys():
-        clr_label = q_clr["label"]
-        clr_val = "@color"
-    else:
-        clr_val = "@color {}".format(q_clr['unit'])
-        clr_label = "{} [{}]".format(q_clr["label"], q_clr["unit"])
-    hover.tooltips = [
-        ("name", "@name"),
-        xhover,
-        yhover,
-        (q_clr["label"], clr_val),
-    ]
 
     if inp_clr.value == 'bond_type':
         clr_label = "Bond type"
@@ -304,8 +302,8 @@ def update():
 
     source.data = get_data(projections, filters_dict, quantities, plot_info)
 
-    #if redraw_plot:
-    if True:  # pylint: disable=using-constant-test
+    if redraw_plot:
+#    if True:  # pylint: disable=using-constant-test
         figure = create_plot()
         #TO DO: for some reason this destroys the coupling to source.data
         # to figure out why (and then restrict this to actual redrawing scenarios)
@@ -354,5 +352,5 @@ tab = bmd.Panel(child=l, title='Scatter plot')
 tabs = bmd.widgets.Tabs(tabs=[tab])
 
 # Put the tabs in the current document for display
-curdoc().title = "Covalent Organic Frameworks"
+curdoc().title = "C-C Cross-Coupling Genome"
 curdoc().add_root(layout([html, tabs]))

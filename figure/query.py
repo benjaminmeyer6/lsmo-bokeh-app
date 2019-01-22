@@ -34,9 +34,12 @@ def get_data_sqla(projections, sliders_dict, quantities, plot_info):
 
     s = select(selections).where(and_(*filters))
 
+    #s = select(selections)
+
     results = engine.connect().execute(s).fetchall()
 
     nresults = len(results)
+  
     if not results:
         plot_info.text = "No matching COFs found."
         return data_empty
