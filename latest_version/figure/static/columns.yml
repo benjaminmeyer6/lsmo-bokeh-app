@@ -1,0 +1,22 @@
+# Columns metadata
+# 2 types supported: float, list
+---
+
+- column: X
+  type: float
+  label: "X"
+  unit: " "
+
+- column: Y
+  type: float
+  label: "Y"
+  unit: " "
+
+- column: DeltaE
+  type: float
+  label: Descriptor
+  range:
+  - -150.0
+  - 100.0
+  unit: "kcal/mol"
+

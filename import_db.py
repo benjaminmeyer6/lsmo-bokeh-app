@@ -12,7 +12,7 @@ import re
 
 folder_db = 'data/'
 structure_extension = 'xyz'
-properties_csv = folder_db + '/propertiesPt.csv'
+properties_csv = folder_db + '/all_complexes.csv'
 table_name = 'Pd'  # parameters will be put in this database
 structure_folder = folder_db + '/structures/'
 db_params = 'sqlite:///{}database.db'.format(folder_db)

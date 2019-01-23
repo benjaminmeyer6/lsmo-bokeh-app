@@ -1,0 +1,11 @@
+# Presets
+# Keys: x, y, clr + filters
+---
+default:
+  clr: DeltaE
+  x: X
+  y: Y
+  DeltaE:
+  - -150.0
+  - 100.0
+

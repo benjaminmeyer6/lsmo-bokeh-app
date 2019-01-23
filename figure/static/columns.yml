@@ -16,7 +16,25 @@
   type: float
   label: Descriptor
   range:
-  - -150.0
-  - 100.0
+  - -80.0
+  - 40.0
   unit: "kcal/mol"
 
+- column: bond_type
+  type: list
+  label: Reaction
+  values:
+  - 0
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  labels:
+  - Pd
+  - Pt
+  - Cu
+  - Ni
+  - Au
+  - Ag
+  unit: " "
