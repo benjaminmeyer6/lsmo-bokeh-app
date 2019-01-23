@@ -16,6 +16,7 @@ import config
 from config import quantities, presets
 from figure.query import get_data_sqla as get_data
 from figure.query import data_empty
+from flask import request
 
 html = bmd.Div(
     text=open(join(config.static_dir, "description.html")).read(), width=800)
@@ -31,6 +32,8 @@ def get_preset_label_from_url():
     except (TypeError, KeyError):
         preset_label = 'default'
 
+    print(preset_label)
+    print(args.get('preset'))
     return preset_label
 
 
