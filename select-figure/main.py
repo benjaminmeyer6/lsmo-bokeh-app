@@ -12,5 +12,5 @@ html = bmd.Div(
     width=960)
 
 # Put the tabs in the current document for display
-curdoc().title = "Covalent Organic Frameworks"
+curdoc().title = "C-C Cross-Coupling Genome"
 curdoc().add_root(layout([html]))

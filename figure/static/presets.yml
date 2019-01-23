@@ -5,23 +5,15 @@ default:
   clr: DeltaE
   x: X
   y: Y
-  DeltaE:
-  - -80.0
-  - 40.0
-
-1a:
   bond_type:
-  - Pd
-  clr: DeltaE
-  x: X
-  y: Y
+  - 0
   DeltaE:
   - -80.0
   - 40.0
 
 1b:
   bond_type:
-  - Pt
+  - 1
   clr: DeltaE
   x: X
   y: Y
@@ -31,7 +23,7 @@ default:
 
 1c:
   bond_type:
-  - Cu
+  - 2
   clr: DeltaE
   x: X
   y: Y
@@ -41,7 +33,7 @@ default:
 
 1d:
   bond_type:
-  - Ni
+  - 3
   clr: DeltaE
   x: X
   y: Y
@@ -51,7 +43,7 @@ default:
 
 1e:
   bond_type:
-  - Au
+  - 4
   clr: DeltaE
   x: X
   y: Y
@@ -61,7 +53,7 @@ default:
 
 1f:
   bond_type:
-  - Ag
+  - 5
   clr: DeltaE
   x: X
   y: Y
