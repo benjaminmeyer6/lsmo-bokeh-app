@@ -12,11 +12,11 @@ default:
   - 40.0
 
 1b:
-  bond_type:
-  - 1
   clr: DeltaE
   x: X
   y: Y
+  bond_type:
+  - 1
   DeltaE:
   - -80.0
   - 40.0

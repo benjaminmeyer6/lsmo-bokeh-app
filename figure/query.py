@@ -41,14 +41,14 @@ def get_data_sqla(projections, sliders_dict, quantities, plot_info):
     nresults = len(results)
   
     if not results:
-        plot_info.text = "No matching COFs found."
+        plot_info.text = "No matching Complexes found."
         return data_empty
     elif nresults > max_points:
         results = results[:max_points]
-        plot_info.text = "{} COFs found.\nPlotting {}...".format(
+        plot_info.text = "{} Complexes found.\nPlotting {}...".format(
             nresults, max_points)
     else:
-        plot_info.text = "{} COFs found.\nPlotting {}...".format(
+        plot_info.text = "{} Complexes found.\nPlotting {}...".format(
             nresults, nresults)
 
     # x,y position
@@ -103,14 +103,14 @@ def get_data_aiida(projections, sliders_dict, quantities, plot_info):
 
     nresults = qb.count()
     if nresults == 0:
-        plot_info.text = "No matching COFs found."
+        plot_info.text = "No matching Complexes found."
         return data_empty
 
-    plot_info.text = "{} COFs found. Plotting...".format(nresults)
+    plot_info.text = "{} Complexes found. Plotting...".format(nresults)
 
     # x,y position
     x, y, clrs, uuids, names, cif_uuids = zip(*qb.all())
-    plot_info.text = "{} COFs queried".format(nresults)
+    plot_info.text = "{} Complexes queried".format(nresults)
     x = map(float, x)
     y = map(float, y)
     cif_uuids = map(str, cif_uuids)
