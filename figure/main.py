@@ -31,9 +31,8 @@ def get_preset_label_from_url():
         preset_label = args.get('preset')[0]
     except (TypeError, KeyError):
         preset_label = 'default'
-
-    print(preset_label)
-    print(args.get('preset'))
+    if preset_label is not 'default':
+        preset_label=preset_label.decode("utf-8")
     return preset_label
 
 
@@ -42,9 +41,8 @@ def load_preset(attr, old, new):  # pylint: disable=unused-argument,redefined-bu
     # get figure from arguments
     try:
         preset = copy(presets[new])
-    except KeyError:
-        preset = copy(presets['default'])
-
+    except KeyError as error:
+        preset = copy(presets['1f'])
     try:
         inp_x.value = preset.pop('x')
     except KeyError:
