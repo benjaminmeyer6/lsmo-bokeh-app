@@ -41,8 +41,8 @@ def load_preset(attr, old, new):  # pylint: disable=unused-argument,redefined-bu
     # get figure from arguments
     try:
         preset = copy(presets[new])
-    except KeyError as error:
-        preset = copy(presets['1f'])
+    except KeyError:
+        preset = copy(presets['default'])
     try:
         inp_x.value = preset.pop('x')
     except KeyError:
