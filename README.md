@@ -46,3 +46,11 @@ docker-compose build
 docker-compose up
 # open http://localhost:3245/select-figure
 ```
+
+### Added comments ###
+
+Download the structures at: https://drive.google.com/open?id=1lcB8jNXpgm22Tu1F9uym4Oa54daxV-Yo 
+Download the allcomplexes.csv file at: https://drive.google.com/open?id=16G0aF7s0_nldhJX6wzY8P_SsFenBbLLv
+Add "export PYTHONPATH=$PYTHONPATH:/current-location/lsmo-bokeh-app" in the bashrc
+For creating the databse: python import_db.py 
+For running the app: bokeh serve --show figure detail select-figure
